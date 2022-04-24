@@ -23,6 +23,7 @@ import { GetUserResult } from 'src/Application/Queries/Get-User.result';
 
 import { AuthService } from 'src/Interface/Services/Auth.service';
 import { PartyRoles } from 'src/Domain/Aggregates/UserAggregate/PartyRole';
+import { User } from 'src/Application/Queries/User.query';
 
 
 
@@ -36,9 +37,9 @@ export class AuthController {
         private readonly authService: AuthService) {}
 
     @Post('create')
-    async createAccountAsync(@Body() body: CreateUserBodyDTO): Promise<void> {
+    async createAccountAsync(@Body() body: CreateUserBodyDTO): Promise<User> {
         const command = new CreateUserCommand(body.email, body.password, body.name, body.role);
-        await this.commandBus.execute(command);
+        return await this.commandBus.execute(command);
     }
 
     @UseGuards(LocalAuthGuard)

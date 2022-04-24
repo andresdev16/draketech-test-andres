@@ -7,20 +7,19 @@ import { User } from 'src/Domain/Aggregates/UserAggregate/User';
 import { UserRepository } from 'src/Domain/Aggregates/UserAggregate/User.repository';
 
 @CommandHandler(CreateUserCommand)
-export class CreateUserHandler implements ICommandHandler<CreateUserCommand, void> {
+export class CreateUserHandler implements ICommandHandler<CreateUserCommand, User> {
     constructor(
         @Inject('UserRepositoryImplement')
         private readonly userRepository: UserRepository,
         private readonly eventPublisher: EventPublisher,
     ) {}
 
-    async execute(command: CreateUserCommand): Promise<void> {
+    async execute(command: CreateUserCommand): Promise<User> {
         const data = new User({
             id: await this.userRepository.newId(),
             email: command.email,
             password: '',
             name: command.name,
-            role: command.role,
         });
 
         const user = this.eventPublisher.mergeObjectContext(data);
@@ -30,5 +29,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand, voi
         await this.userRepository.save(user);
 
         user.commit
+
+        return user
     }
 }

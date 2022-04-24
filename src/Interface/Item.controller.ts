@@ -16,7 +16,6 @@ import { GetItemQuery } from 'src/Application/Queries/Get-Item.query';
 
 @ApiTags('Products')
 @Controller('products')
-@Roles(PartyRoles.Seller)
 export class ItemController {
     constructor(
         private readonly commandBus: CommandBus,

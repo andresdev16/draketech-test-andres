@@ -9,7 +9,6 @@ export interface UserProperties {
     readonly email: string;
     readonly password: string;
     readonly name: string;
-    readonly role: string;  
 }
 
 export class User extends AggregateRoot {
@@ -17,16 +16,13 @@ export class User extends AggregateRoot {
     private email: string;
     private password: string;
     private name: string;
-    private role: string;
-
-    
+   
     constructor(properties: UserProperties) {
         super()
         this.id = properties.id;
         this.email = properties.email;
         this.password = properties.password;
         this.name = properties.name;
-        this.role = properties.role;
     }
 
     properties(): UserProperties {
@@ -35,7 +31,6 @@ export class User extends AggregateRoot {
             email: this.email,
             password: this.password,
             name: this.name,
-            role: this.role,
         };
     }
 

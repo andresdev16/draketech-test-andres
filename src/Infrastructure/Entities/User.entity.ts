@@ -13,7 +13,4 @@ export class UserEntity {
 
     @Column()
     name!: string;
-
-    @Column()
-    role!: string;
 }
