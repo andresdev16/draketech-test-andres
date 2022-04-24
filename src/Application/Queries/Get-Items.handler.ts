@@ -12,7 +12,7 @@ export class GetAllItemsHandler implements IQueryHandler<GetAllItemsQuery, GetAl
     ) {}
 
     async execute(query: GetAllItemsQuery): Promise<GetAllItemsResult> {
-        return (await this.itemQuery.find(query.userId, query.offset, query.limit)).map(
+        return (await this.itemQuery.find(query.offset, query.limit)).map(
             this.filterResultProperties,
         )
     }

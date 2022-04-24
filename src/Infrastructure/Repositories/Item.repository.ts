@@ -8,10 +8,10 @@ import { Item } from 'src/Domain/Aggregates/ItemAggregate/Item';
 export class ItemRepositoryImplement implements ItemRepository {
     async newId(): Promise<string> {
         const emptyEntity = new ItemEntity();
-        emptyEntity.orders = [];
         emptyEntity.name = '';
-        emptyEntity.qty = '';
-        emptyEntity.weight = 0;
+        emptyEntity.quantity = 0;
+        emptyEntity.price = 0;
+        emptyEntity.imageUrl = ''
         const entity = await getRepository(ItemEntity).save(emptyEntity);
         return entity.id;
     }

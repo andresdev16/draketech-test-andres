@@ -12,7 +12,6 @@ export class UserRepositoryImplement implements UserRepository {
         emptyEntity.password = '';
         emptyEntity.name = '';
         emptyEntity.role = '';
-        emptyEntity.orders = [];
         const entity = await getRepository(UserEntity).save(emptyEntity);
         return entity.id;
     }

@@ -4,7 +4,7 @@ import { IsNotEmpty, IsString } from 'class-validator';
 export class AuthUserBodyDTO {
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({example: 'example@example.com'})
     readonly email: string;
 
     @IsString()

@@ -21,8 +21,6 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand, voi
             password: '',
             name: command.name,
             role: command.role,
-            orders: [],
-            items: [],
         });
 
         const user = this.eventPublisher.mergeObjectContext(data);

@@ -44,7 +44,7 @@ export class AuthController {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async loginAsync(@Request() request: any, @Body() body: AuthUserBodyDTO): Promise<any> {
-        return this.authService.login(request.user)
+        return await this.authService.login(request.user)
     }
 
     @UseGuards(JwtAuthGuard)

@@ -17,11 +17,10 @@ export class CreateItemHandler implements ICommandHandler<CreateItemCommand> {
     async execute(command: CreateItemCommand): Promise<any> {
         const data = new Item({
             id: await this.itemRepository.newId(),
-            userId: command.userId,
-            orders: [command.orders],
             name: command.name,
-            qty: command.qty,
-            weight: command.weight,
+            quantity: command.quantity,
+            price: command.price,
+            imageUrl: command.imageUrl
         });
 
         const item = this.eventPublisher.mergeObjectContext(data);

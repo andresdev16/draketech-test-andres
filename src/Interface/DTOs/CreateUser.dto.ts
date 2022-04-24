@@ -19,6 +19,6 @@ export class CreateUserBodyDTO {
 
     @IsString()
     @IsNotEmpty()
-    @ApiProperty()
+    @ApiProperty({example: 'Administator'})
     readonly role: string;
 }

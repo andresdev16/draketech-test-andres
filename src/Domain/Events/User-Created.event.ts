@@ -7,6 +7,4 @@ export class UserCreatedEvent implements IEvent, UserProperties {
    readonly password: string;
    readonly name: string;
    readonly role: string;
-   readonly items: any;
-   readonly orders: any;
 }

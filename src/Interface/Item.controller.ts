@@ -1,13 +1,4 @@
-import { 
-    Body,
-    Controller,
-    Get,
-    Param,
-    Post,
-    Request,
-    UseGuards,
-    Query,
-} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Request, UseGuards, Query} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -35,7 +26,7 @@ export class ItemController {
     @ApiBearerAuth()
     @Post('create')
     async createAsync(@Request() request: any, @Body() body: CreateItemDTO): Promise<void>{
-        const command = new CreateItemCommand(request.user.userId, body.name, body.qyt, body.weight, body.orders)
+        const command = new CreateItemCommand(body.name, body.quantity, body.price, body.imageUrl)
         await this.commandBus.execute(command)
     }
 
@@ -43,7 +34,7 @@ export class ItemController {
     @ApiBearerAuth()
     @Get('all')
     async getAll(@Request() request: any, @Query() queryDto: GetItemsQueryDTO): Promise<any> {
-        const query = new GetAllItemsQuery(request.user.userId, queryDto.offset, queryDto.limit);
+        const query = new GetAllItemsQuery(queryDto.offset, queryDto.limit);
         return { products: await this.queryBus.execute(query) };
     }
 

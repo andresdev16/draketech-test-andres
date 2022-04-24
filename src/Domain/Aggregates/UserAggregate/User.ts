@@ -1,7 +1,6 @@
 import { InternalServerErrorException } from '@nestjs/common';
 import { AggregateRoot } from '@nestjs/cqrs';
 import * as bcrypt from 'bcrypt';
-import { Order } from '../OrderAggregate/Order';
 
 import { UserCreatedEvent } from 'src/Domain/Events/User-Created.event';
 
@@ -10,25 +9,15 @@ export interface UserProperties {
     readonly email: string;
     readonly password: string;
     readonly name: string;
-    readonly role: string;
-    readonly items: any;
-    readonly orders: any;    
+    readonly role: string;  
 }
 
 export class User extends AggregateRoot {
     private readonly id: string;
-
     private email: string;
-
     private password: string;
-
     private name: string;
-
     private role: string;
-
-    private items: any;
-
-    private orders: any;
 
     
     constructor(properties: UserProperties) {
@@ -38,8 +27,6 @@ export class User extends AggregateRoot {
         this.password = properties.password;
         this.name = properties.name;
         this.role = properties.role;
-        this.items = properties.items;
-        this.orders = properties.orders;
     }
 
     properties(): UserProperties {
@@ -49,8 +36,6 @@ export class User extends AggregateRoot {
             password: this.password,
             name: this.name,
             role: this.role,
-            items: this.items,
-            orders: this.orders,
         };
     }
 

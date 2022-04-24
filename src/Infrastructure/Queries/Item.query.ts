@@ -12,10 +12,9 @@ export class ItemQueryImplement implements ItemQuery {
         return this.convertItemFromEntity(await getRepository(ItemEntity).findOne(id))
     }
 
-    async find(userId: string, offset: number, limit: number): Promise<Items> {
+    async find(offset: number, limit: number): Promise<Items> {
         return this.convertItemsFromEntities(
             await getRepository(ItemEntity).find({
-                where: [{ userId: userId }],
                 skip: offset,
                 take: limit
             }),

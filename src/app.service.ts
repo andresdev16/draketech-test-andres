@@ -2,7 +2,6 @@ import { OnModuleDestroy, OnModuleInit } from '@nestjs/common';
 import { Connection, createConnection } from 'typeorm';
 
 import { UserEntity } from 'src/Infrastructure/Entities/User.entity';
-import { OrderEntity } from 'src/Infrastructure/Entities/Order.entity';
 import { ItemEntity } from 'src/Infrastructure/Entities/Item.entity';
 
 class DBConfig {
@@ -63,7 +62,7 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
       exchange: process.env.RABBIT_MQ_EXCHANGE || 'example-exchange',
       hostname: process.env.RABBIT_MQ_HOSTNAME || 'localhost',
       username: process.env.RABBIT_MQ_USER_NAME || 'root',
-      password: process.env.RABBIT_MQ_PASSWORD || 'andres16',
+      password: process.env.RABBIT_MQ_PASSWORD || 'test',
     };
   }
 
@@ -74,7 +73,7 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
       ...this.loadDBConfig(),
       type: 'mysql',
       entities: [
-        UserEntity, OrderEntity, ItemEntity
+        UserEntity, ItemEntity
         //'./infrastructure/entities/*.entity.ts'
       ],
     }).catch((error: Error) => this.failToConnectDatabase(error));
@@ -84,9 +83,9 @@ export class AppService implements OnModuleInit, OnModuleDestroy {
     return {
       host: process.env.DATABASE_HOST || 'localhost',
       port: 3306,
-      database: process.env.DATABASE_NAME || 'orders',
+      database: process.env.DATABASE_NAME || 'nest',
       username: process.env.DATABASE_USER || 'root',
-      password: process.env.DATABASE_PASSWORD || 'andres16',
+      password: process.env.DATABASE_PASSWORD || 'test',
       synchronize: 'true' === process.env.DATABASE_SYNC || true,
       logging: 'true' === process.env.DATABASE_LOGGING || true,
     };

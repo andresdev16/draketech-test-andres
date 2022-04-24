@@ -2,39 +2,35 @@ import { AggregateRoot } from '@nestjs/cqrs';
 
 export interface ItemProperties {
     readonly id: string;
-    readonly userId: any;
-    readonly orders: any;
     readonly name: string;
-    readonly qty: string;
-    readonly weight: number;
+    readonly quantity: number;
+    readonly price: number;
+    readonly imageUrl: string;
 }
 
 export class Item extends AggregateRoot {
     private readonly id: string;
-    private readonly userId: any;
-    private orders?: any;
     private name: string;
-    private qty: string;
-    private weight: number;
+    private quantity: number;
+    private price: number;
+    private imageUrl: string;
 
     constructor(properties: ItemProperties) {
         super()
         this.id = properties.id;
-        this.userId = properties.userId;
-        this.orders = properties.orders;
         this.name = properties.name;
-        this.qty = properties.qty;
-        this.weight = properties.weight;
+        this.quantity = properties.quantity;
+        this.price = properties.price;
+        this.imageUrl = properties.imageUrl;
     }
 
     properties(): ItemProperties {
         return {
             id: this.id,
-            userId: this.userId,
-            orders: this.orders,
             name: this.name,
-            qty: this.qty,
-            weight: this.weight,
+            quantity: this.quantity,
+            price: this.price,
+            imageUrl: this.imageUrl,
         };
     }
 
