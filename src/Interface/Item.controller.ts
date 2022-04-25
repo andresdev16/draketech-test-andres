@@ -25,40 +25,30 @@ export class ItemController {
         private readonly commandBus: CommandBus,
         private readonly queryBus: QueryBus) {}
 
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @Post('create')
     async createAsync(@Request() request: any, @Body() body: CreateItemDTO): Promise<void>{
         const command = new CreateItemCommand(body.name, body.quantity, body.price, body.imageUrl)
         await this.commandBus.execute(command)
     }
 
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @Get('all')
     async getAll(@Request() request: any, @Query() queryDto: GetItemsQueryDTO): Promise<any> {
         const query = new GetAllItemsQuery(queryDto.offset, queryDto.limit);
         return { products: await this.queryBus.execute(query) };
     }
 
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @Get('/:id')
     async getItem(@Param() param: GetItemQueryParamDTO): Promise<any> {
         const query = new GetItemQuery(param.id);
         return this.queryBus.execute(query);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @Delete('/:id')
     async deleteItem(@Param() param: DeleteItemDTO): Promise<void> {
         const command = new DeleteItemCommand(param.id);
         return this.commandBus.execute(command);
     }
 
-    @UseGuards(JwtAuthGuard)
-    @ApiBearerAuth()
     @Put('update')
     async updateItem(@Body() body: UpdateItemDTO): Promise<any> {
         const command = new UpdateItemCommand(body.id, body.name, body.quantity, body.price, body.imageUrl);
