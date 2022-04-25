@@ -36,6 +36,8 @@ import { UserEntity } from './Infrastructure/Entities/User.entity';
 import { ItemEntity } from './Infrastructure/Entities/Item.entity';
 import { DeleteItemCommand } from './Application/Commands/Delete-Item.command';
 import { UpdateItemCommand } from './Application/Commands/Update-Item.command';
+import { DeleteItemHandler } from './Application/Commands/Delete-Item.handler';
+import { UpdateItemHandler } from './Application/Commands/Update-Item.handler';
 
 const Infrastructure = [
   IntegrationEventPublisherImplement,
@@ -61,7 +63,9 @@ const Application = [
   GetAllItemsQuery,
   GetUserQuery,
   DeleteItemCommand,
-  UpdateItemCommand
+  DeleteItemHandler,
+  UpdateItemCommand,
+  UpdateItemHandler
 ];
 
 @Module({
