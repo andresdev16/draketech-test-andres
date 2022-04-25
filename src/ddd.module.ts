@@ -34,6 +34,8 @@ import { GetUserQuery } from './Application/Queries/Get-User.query';
 
 import { UserEntity } from './Infrastructure/Entities/User.entity';
 import { ItemEntity } from './Infrastructure/Entities/Item.entity';
+import { DeleteItemCommand } from './Application/Commands/Delete-Item.command';
+import { UpdateItemCommand } from './Application/Commands/Update-Item.command';
 
 const Infrastructure = [
   IntegrationEventPublisherImplement,
@@ -58,6 +60,8 @@ const Application = [
   GetItemQuery,
   GetAllItemsQuery,
   GetUserQuery,
+  DeleteItemCommand,
+  UpdateItemCommand
 ];
 
 @Module({
