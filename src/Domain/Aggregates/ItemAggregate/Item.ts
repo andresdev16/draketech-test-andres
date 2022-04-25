@@ -37,4 +37,11 @@ export class Item extends AggregateRoot {
     rename(name: string): void {
         this.name = name;
     }
+
+    edit(name: string, quantity: number, price: number, imageUrl: string): void {
+        this.name = name;
+        this.quantity = quantity;
+        this.price = price;
+        this.imageUrl = imageUrl
+    }
 }

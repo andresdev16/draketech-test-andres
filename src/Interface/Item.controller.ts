@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post, Request, UseGuards, Query} from '@nestjs/common';
+import {Body, Controller, Get, Param, Post, Request, UseGuards, Query, Delete, Put} from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
@@ -13,6 +13,10 @@ import { GetItemsQueryDTO } from './DTOs/GetItemsQuery.dto';
 import { GetAllItemsQuery } from 'src/Application/Queries/Get-Items.query';
 import { GetItemQueryParamDTO } from './DTOs/GetItemQuery.param.dto';
 import { GetItemQuery } from 'src/Application/Queries/Get-Item.query';
+import { DeleteItemDTO } from './DTOs/DeleteItem.dto';
+import { DeleteItemCommand } from 'src/Application/Commands/Delete-Item.command';
+import { UpdateItemDTO } from './DTOs/UpdateItem.dto';
+import { UpdateItemCommand } from 'src/Application/Commands/Update-Item.command';
 
 @ApiTags('Products')
 @Controller('products')
@@ -43,5 +47,21 @@ export class ItemController {
     async getItem(@Param() param: GetItemQueryParamDTO): Promise<any> {
         const query = new GetItemQuery(param.id);
         return this.queryBus.execute(query);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @Delete('/:id')
+    async deleteItem(@Param() param: DeleteItemDTO): Promise<void> {
+        const command = new DeleteItemCommand(param.id);
+        return this.commandBus.execute(command);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @ApiBearerAuth()
+    @Put('update')
+    async updateItem(@Body() body: UpdateItemDTO): Promise<any> {
+        const command = new UpdateItemCommand(body.id, body.name, body.quantity, body.price, body.imageUrl);
+        return await this.commandBus.execute(command);
     }
 }

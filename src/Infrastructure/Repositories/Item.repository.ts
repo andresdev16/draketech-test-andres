@@ -23,6 +23,10 @@ export class ItemRepositoryImplement implements ItemRepository {
         const entities = models.map((model) => this.modelToEntity(model));
         await getRepository(ItemEntity).save(entities);
     }
+
+    async delete(itemId: string): Promise<void> {
+        await getRepository(ItemEntity).delete({ id: itemId })
+    }
     
     async findById(id: string) :Promise<Item> {
         const entity = await getRepository(ItemEntity).findOne({ id });
